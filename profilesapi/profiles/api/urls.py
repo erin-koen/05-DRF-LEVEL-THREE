@@ -1,6 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from profiles.api.views import ProfileViewSet
+from profiles.api.views import (
+    ProfileViewSet, ProfileStatusViewSet, AvatarUpdateView)
 
 # ***The below is an implementation sans routers***
 # profile_list = ProfileViewSet.as_view({"get": "list"})
@@ -15,7 +16,9 @@ from profiles.api.views import ProfileViewSet
 router = DefaultRouter()
 # raw strings (prefixed by r) treat backslashes as literal characters
 router.register(r"profiles", ProfileViewSet)
+router.register(r"status", ProfileStatusViewSet)
 
 urlpatterns = [
-    path("", include(router.urls))
+    path("", include(router.urls)),
+    path("avatar/", AvatarUpdateView.as_view(), name="avatar-update")
 ]
