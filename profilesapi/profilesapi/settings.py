@@ -37,10 +37,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     'rest_framework',
+    # need to reference this to apply approp migrations to db to store sessions
+    'rest_framework.authtoken',
+    # allauth to build user registration endpoints
+    'allauth',
+    'allauth.account',
+    # allow for oauth - not covered but look into it
+    'allauth.socialaccount',
+    
+    'rest_auth',
+    'rest_auth.registration',
 
-    'profiles'
+    'profiles',
+
 ]
 
 MIDDLEWARE = [
@@ -124,4 +136,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # for hosting images
 MEDIA_URL = "/media/"
-MEDIA_ROOT= "uploads"
+MEDIA_ROOT = "uploads"
+
+# keep sessions to use with drf api browser
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
+
+SITE_ID = 1
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_REQUIRED = True
