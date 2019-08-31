@@ -16,7 +16,8 @@ from profiles.api.views import (
 router = DefaultRouter()
 # raw strings (prefixed by r) treat backslashes as literal characters
 router.register(r"profiles", ProfileViewSet)
-router.register(r"status", ProfileStatusViewSet)
+# detailed explanation of basename attribute - check DRF docs
+router.register(r"status", ProfileStatusViewSet, basename="status")
 
 urlpatterns = [
     path("", include(router.urls)),
